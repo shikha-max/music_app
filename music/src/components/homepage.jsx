@@ -9,13 +9,16 @@ import { Audio } from "react-loader-spinner";
 import { PageBox } from "./pageBox";
 import styled from "styled-components";
 import { Sidebar } from "./sidebar";
+import styles from './select.css'
 export const Homepage = () => {
   const [album, setAlbum] = useState([]);
   const [text, setText] = useState("");
   const [data, setData] = useState([]);
   const [load, setLoad] = useState(true);
     const [arr1,setarr]= useState([])
-    const [page,setPage]= useState(2)
+    const [page,setPage]= useState(1)
+    const [wholeData,setWhole]=useState([])
+    
   let arr = [];
   useEffect(() => {
     getAlbums();
@@ -32,6 +35,7 @@ export const Homepage = () => {
     setLoad(false);
     setAlbum(res.data.data);
     setData(res.data.data);
+    setWhole(res.data.data)
   };
 
 
@@ -40,6 +44,25 @@ export const Homepage = () => {
             setPage(value)
   }
 
+  const Filter=(val)=>{
+
+
+    if(val=="genre"){
+      setAlbum(wholeData)
+    }
+    else{
+      let res=wholeData.filter((e)=>{
+        if(e.genre==val){
+            return e
+        }
+    })
+   // console.log(res,wholeData);
+
+    setAlbum(res)
+    }
+
+     
+  }
   const debounce = (func) => {
     let timer;
     return function (...args) {
@@ -75,18 +98,19 @@ export const Homepage = () => {
              <Sidebar>
              <input placeholder="Enter album name" onChange={magic}></input>
             
-   {/* <div className='select'>
-   <select name="format" id="format">
-      <option selected disabled>Choose a book format</option>
-      <option value="Romantic">Romantic</option>
-      <option value="Party">Party</option>
-      <option value="Pop">Pop</option>
-      <option value="filmi">filmi</option>
-      
-   </select>
-   </div>
- */}
+             <div>
+             <select onClick={(e)=>{
+            
+                 Filter(e.target.value)
+             }} className={styles.themeconstruction}>
+  <option value='genre'>Genre</option>
+  <option value='filmi'>Filmi</option>
+  <option value='Romantic'>Romantic</option>
+  <option value='Pop'>Pop</option>
+  <option value='Party'>Party</option>
+</select>
 
+             </div>
              </Sidebar>
          </div>
 

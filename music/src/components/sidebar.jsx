@@ -22,7 +22,7 @@ justify-content:center;
 padding:10px;
 & input{
     margin-top:50px;
-    width:90%;
+    width:80%;
     padding:15px;
     outline:none;
     background:#BDBDBD;
@@ -39,4 +39,13 @@ h2{
     cursor:pointer;
     margin-top:50px;
 }
+
+& div{
+    position:absolute;
+
+    width:200px;
+    top:110px;
+}
+
+
 `
